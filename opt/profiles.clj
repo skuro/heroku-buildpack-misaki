@@ -8,7 +8,9 @@
  :production {:mirrors {"central" "http://s3pository.herokuapp.com/maven-central"
                         ;; "clojars" "http://s3pository.herokuapp.com/clojars"
                         }
-              :offline true}
+              :offline true
+              :plugins [[lein-misaki "0.1.2"]]}
  :heroku {:mirrors {"central" "http://s3pository.herokuapp.com/maven-central"
                     ;; "clojars" "http://s3pository.herokuapp.com/clojars"
-                    }}}
+                    }
+          :plugins [[lein-misaki "0.1.2"]]}}
