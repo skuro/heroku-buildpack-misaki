@@ -1,6 +1,6 @@
-# Heroku buildpack: Clojure
+# Heroku buildpack: Clojure+Misaki
 
-This is a Heroku buildpack for Clojure apps. It uses
+This is a Heroku buildpack for Clojure+Misaki apps. It uses
 [Leiningen](http://leiningen.org).
 
 Note that you don't have to do anything special to use this buildpack
@@ -14,11 +14,14 @@ Example usage for an app already stored in git:
 
     $ tree
     |-- Procfile
-    |-- project.clj
-    |-- README
-    `-- src
-        `-- sample
-            `-- core.clj
+    |-- _config.clj
+    `-- template
+    |   `-- layouts
+    |   |   `-- default.clj
+    |   `-- index.html.clj
+    `-- public
+        `-- css
+            `-- styles.css
 
     $ heroku create
 
