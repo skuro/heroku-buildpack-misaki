@@ -3,7 +3,8 @@
                   ;; "clojars" "http://s3pository.herokuapp.com/clojars"
                   }
         :aliases {"repl" "standalone-repl"}
-        :plugins [[lein-standalone-repl "0.1.5"]]}
+        :plugins [[lein-standalone-repl "0.1.5"]
+                  [lein-misaki "0.1.2"]]}
  :production {:mirrors {"central" "http://s3pository.herokuapp.com/maven-central"
                         ;; "clojars" "http://s3pository.herokuapp.com/clojars"
                         }
