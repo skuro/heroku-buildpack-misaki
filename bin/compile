@@ -37,19 +37,9 @@ fi
 export PATH="$HOME/.jdk/bin:$PATH"
 
 # Determine Leiningen version
-if [ "$(grep ":min-lein-version[[:space:]]\+\"2" $1/project.clj)" != "" ]; then
-  LEIN_VERSION="2.1.2"
-  LEIN_BIN_SOURCE="$(dirname $0)/../opt/lein2"
-  LEIN_BUILD_TASK=${LEIN_BUILD_TASK:-"with-profile production compile :all"}
-else
-  LEIN_VERSION="1.7.1"
-  LEIN_BIN_SOURCE="$(dirname $0)/../opt/lein1"
-  LEIN_BUILD_TASK=${LEIN_BUILD_TASK:-"deps"}
-  if [ "$LEIN_DEV" = "" ]; then
-    export LEIN_NO_DEV=y
-  fi
-  RLWRAP=yes
-fi
+LEIN_VERSION="2.1.2"
+LEIN_BIN_SOURCE="$(dirname $0)/../opt/lein2"
+LEIN_BUILD_TASK=${LEIN_BUILD_TASK:-"with-profile production compile :all"}
 
 # install leiningen jar
 LEIN_JAR_URL="https://heroku-buildpack-clojure.s3.amazonaws.com/leiningen-$LEIN_VERSION-standalone.jar"
@@ -64,22 +54,8 @@ else
   echo "-----> Using cached Leiningen $LEIN_VERSION"
 fi
 
-if [ "$LEIN_VERSION" = "1.7.1" ]; then
-  echo "       To use Leiningen 2.x, add this to project.clj: :min-lein-version \"2.0.0\""
-fi
-
 mkdir -p "$BUILD_DIR/.lein"
 cp "$LEIN_JAR_PATH" "$BUILD_DIR/.lein/leiningen-$LEIN_VERSION-standalone.jar"
-
-# install rlwrap binary on lein 1.x
-if [ "$RLWRAP" = "yes" ]; then
-  RLWRAP_BIN_URL="https://s3.amazonaws.com/heroku-buildpack-clojure/rlwrap-0.3.7"
-  RLWRAP_BIN_PATH=$BUILD_DIR"/.lein/bin/rlwrap"
-  echo "       Downloading: rlwrap-0.3.7"
-  mkdir -p $(dirname $RLWRAP_BIN_PATH)
-  curl --silent --show-error --max-time 60 -L -o $RLWRAP_BIN_PATH $RLWRAP_BIN_URL
-  chmod +x $RLWRAP_BIN_PATH
-fi
 
 # install lein script
 LEIN_BIN_PATH=$BUILD_DIR"/.lein/bin/lein"
